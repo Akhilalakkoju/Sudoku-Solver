@@ -34,5 +34,5 @@ java SudokuSolver
 * Learning backtracking
 * Improving problem-solving skills
 
-⭐ Feel free to fork and explore the project!
+
 
