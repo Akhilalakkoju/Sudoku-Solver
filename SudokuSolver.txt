@@ -50,7 +50,7 @@ public class Main {
 
 		Scanner scan = new Scanner(System.in);
 
-		System.out.println("Enter Sudoku To Be Solved :");
+		System.out.println("Enter Sudoku To Be Solved (Enter 0 for Empty Block):");
 		for(int i = 0 ; i < grid.length ; i++) {
 			for(int j = 0 ; j < grid[0].length ; j++) {
 				grid[i][j] = scan.nextInt();
