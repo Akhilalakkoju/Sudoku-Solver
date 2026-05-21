@@ -1,0 +1,74 @@
+import java.util.Scanner ;
+public class Main {
+	public static int[] NextEmptyBlock(int [][]grid) {
+		for(int i = 0 ; i < grid.length ; i++) {
+			for(int j = 0 ; j < grid[0].length ; j++) {
+				if(grid[i][j] == 0) {
+					return new int[]{i , j};
+				}
+			}
+		}
+		return new int[]{-1 , -1};
+	}
+	public static boolean Row(int [][]grid , int num , int row) {
+		for(int i = 0 ; i < grid[0].length ; i++) {
+			if(grid[row][i] == num) return false ;
+		}
+		return true ;
+	}
+	public static boolean Column(int [][]grid , int num , int col) {
+		for(int i = 0 ; i < grid.length ; i++) {
+			if(grid[i][col] == num) return false ;
+		}
+		return true ;
+	}
+	public static boolean Box(int [][]grid , int num, int row, int col) {
+    		int startRow = row - row % 3;
+    		int startCol = col - col % 3;
+
+    		for(int i = startRow; i < startRow + 3; i++) {
+        		for(int j = startCol; j < startCol + 3; j++) {
+            			if(grid[i][j] == num) return false;
+        		}
+    		}
+    		return true;
+	}
+	public static boolean Solve(int [][]grid) {
+		int []index = NextEmptyBlock(grid);
+		if(index[0] == -1) return true;
+		for(int i = 1 ; i <= 9 ; i++) {
+			if(Row(grid , i , index[0]) && Column(grid , i , index[1]) && Box(grid , i , index[0] , index[1])) {
+				grid[index[0]][index[1]] = i ;
+				if(Solve(grid)) return true ;
+				grid[index[0]][index[1]] = 0;
+			}
+		}
+		return false;
+	}
+	public static void main(String []args) {
+    		int [][]grid = new int[9][9];
+
+		Scanner scan = new Scanner(System.in);
+
+		System.out.println("Enter Sudoku To Be Solved :");
+		for(int i = 0 ; i < grid.length ; i++) {
+			for(int j = 0 ; j < grid[0].length ; j++) {
+				grid[i][j] = scan.nextInt();
+			}
+			System.out.println();
+		}
+
+		if(Solve(grid)) {
+			System.out.println(" ~~~~~~~~~~~~~~~~~~~~ Solved Successfully ~~~~~~~~~~~~~~~~~~~~~~");
+			System.out.println();
+			for(int i = 0 ; i < grid.length ; i++) {
+				for(int j = 0 ; j < grid[0].length ; j++) {
+					System.out.print(grid[i][j] + "  ");
+				}
+				System.out.println();
+			}
+		} else {
+			System.out.println("Cannot able to Solve");
+		}
+	}
+}
